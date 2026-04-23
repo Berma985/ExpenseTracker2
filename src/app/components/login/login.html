@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  @if (cUser() == null) {
+    <mat-card class="login-card">
+      <h2 class="text-center">Login</h2>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-2">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" [(ngModel)]="email" />
+          </mat-form-field>
+        </div>
+
+        <div class="mb-2">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" [(ngModel)]="password" />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <button mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
+        </div>
+
+        <div>
+          <p class="mt-3">
+            Don't have an account?
+            <a routerLink="/register">Register here</a>
+          </p>
+        </div>
+
+        <div>
+          <button mat-raised-button color="primary" (click)="userService.signInWithGoogle()">
+            Sign In with Google
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  } @else {
+    <mat-card class="login-card">
+      <h2 class="text-center">Logout</h2>
+      <form>
+        <div class="mb-2">
+          <p class="text-center">You are currently logged in as {{ cUser()?.name }}</p>
+        </div>
+        <div><button mat-raised-button color="primary" (click)="onLogout()">Logout</button></div>
+      </form>
+    </mat-card>
+  }
+</div>

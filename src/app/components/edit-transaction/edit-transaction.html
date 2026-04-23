@@ -1,0 +1,54 @@
+<mat-card class="form-card">
+  <h2>Edit Transaction</h2>
+
+  <form [formGroup]="form()!" (ngSubmit)="submit()">
+    <!-- Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" />
+    </mat-form-field>
+
+    <!-- Amount -->
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" formControlName="amount" />
+    </mat-form-field>
+
+    <!-- Type -->
+    <mat-form-field appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="Income">Income</mat-option>
+        <mat-option value="Expense">Expense</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Category -->
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="categoryId">
+        @for (c of categories(); track c.id) {
+          <mat-option [value]="c.id">
+            <div [style.color]="c.color">{{ c.name }}</div>
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Date -->
+    <mat-form-field appearance="fill">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Notes -->
+    <mat-form-field appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea matInput formControlName="notes"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Edit Transaction</button>
+  </form>
+</mat-card>

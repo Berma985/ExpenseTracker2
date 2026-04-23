@@ -1,0 +1,116 @@
+<div class="transactions-container">
+  <div class="text-center">
+    <h2>Transactions</h2>
+  </div>
+
+  <button mat-raised-button color="primary" routerLink="/transactionsnew">Add Transaction</button>
+  <button mat-raised-button color="secondary" routerLink="/categories">Categories</button>
+
+  <!--Filter Section-->
+  <div class="container mt-2" style="background-color: rgb(255, 255, 255)">
+    <mat-form-field appearance="outline">
+      <mat-label>Search transactions</mat-label>
+      <input matInput (input)="onSearchChange($event.target.value)" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Category</mat-label>
+
+      <mat-select (selectionChange)="onCategoryChange($event.value)">
+        <mat-option [value]="null">All Categories</mat-option>
+        @for (c of categories(); track c.id) {
+          <mat-option [value]="c.id">
+            {{ c.name }}
+          </mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>From Date</mat-label>
+
+      <input matInput [matDatepicker]="fromPicker" (dateChange)="onFromDateChange($event.value)" />
+
+      <mat-datepicker-toggle matIconSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>To Date</mat-label>
+
+      <input matInput [matDatepicker]="toPicker" (dateChange)="onToDateChange($event.value)" />
+
+      <mat-datepicker-toggle matIconSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <!-- Table section -->
+  @if (loading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  }
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width">
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let tx">
+        {{ toReadableDate(tx.date) }}
+      </td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let tx">
+        {{ tx.name }}
+      </td>
+    </ng-container>
+
+    <!-- Amount Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let tx">
+        <span>
+          {{ tx.amount | currency }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Category Column-->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let tx">
+        <span [style.color]="getCategory(tx.categoryId)?.color">
+          <mat-icon>{{ getCategory(tx.categoryId)?.iconType }}</mat-icon>
+          {{ getCategory(tx.categoryId)?.name }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Type Column-->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let tx">
+        <span>
+          {{ tx.type }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let tx">
+        <button mat-icon-button color="warn" (click)="deleteTransaction(tx.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="editTransaction(tx.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- Header + Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <p *ngIf="!loading && dataSource.data.length === 0">No transactions found.</p>
+</div>

@@ -1,0 +1,49 @@
+<mat-card>
+  <div class="p-3">
+    <mat-card-title>Add Category</mat-card-title>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Color</mat-label>
+        <input matInput type="color" formControlName="color" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Icon</mat-label>
+
+        <input matInput [matAutocomplete]="auto" [formControl]="form.controls.iconType" />
+
+        <mat-autocomplete #auto="matAutocomplete">
+          @for (icon of iconOptions; track icon) {
+            <mat-option [value]="icon">
+              <mat-icon>{{ icon }}</mat-icon>
+              {{ icon }}
+            </mat-option>
+          }
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Budget</mat-label>
+        <input matInput type="number" formControlName="budget" />
+      </mat-form-field>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || loading">
+        @if (loading) {
+          Saving...
+        } @else {
+          Create Category
+        }
+      </button>
+    </form>
+  </div>
+</mat-card>

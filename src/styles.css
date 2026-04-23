@@ -1,1 +1,186 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-link {
+  margin-left: 10px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.form-card {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.container {
+  padding: 16px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.category-card {
+  transition: transform 0.2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+}
+
+.category-avatar {
+  border-radius: 50%;
+}
+
+.icon-select-panel {
+  max-height: 250px !important;
+  overflow-y: auto !important;
+}
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+mat-card {
+  max-width: 400px;
+  margin: 24px auto;
+}
+
+.error {
+  color: red;
+  margin-bottom: 12px;
+}
+
+.page {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  background: #fafafa;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 720px;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Section layout for big forms */
+.section {
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #666;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+/* Form fields */
+.form-field {
+  width: 100%;
+  margin-bottom: 18px;
+  display: block;
+}
+
+/* Make Material form fields consistent spacing */
+mat-form-field {
+  width: 100%;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 10px 0;
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* Icon preview */
+.icon-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: #666;
+}
+
+/* Error message */
+.error {
+  color: #d32f2f;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+/* Improve select dropdown panel */
+.icon-select-panel {
+  max-height: 260px !important;
+  overflow-y: auto !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 16px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .page {
+    padding: 0;
+  }
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 🔥 3 equal columns */
+  gap: 20px;
+
+  max-width: 1000px; /* 👈 keeps them from stretching too wide */
+  margin: 0 auto; /* 👈 centers the whole block */
+}
+
+.chart-container {
+  height: 280px;
+}

@@ -1,0 +1,65 @@
+<div class="summary text-center">
+  <h1>Dashboard</h1>
+  <h2>Total Income: {{ totalIncome() | currency }}</h2>
+  <h2>Total Expense: {{ totalExpense() | currency }}</h2>
+  <h2 [style.color]="net() < 0 ? 'Red' : 'Black'">Net: {{ net() | currency }}</h2>
+</div>
+<div class="text-center" style="color: red">
+  @if (alertsClose().length > 0 || alertsOver().length > 0) {
+    <h2>Alerts!</h2>
+  }
+  @if (alertsClose().length > 0) {
+    <div>
+      @for (a of alertsClose(); track $index) {
+        <p>{{ a.name }} is almost over budget: {{ a.budget - a.actual | currency }} Under budget</p>
+      }
+    </div>
+  }
+  @if (alertsOver().length > 0) {
+    <div>
+      @for (a of alertsOver(); track $index) {
+        <p>{{ a.name }} is over budget: {{ a.actual - a.budget | currency }} Over budget</p>
+      }
+    </div>
+  }
+</div>
+
+<div class="charts">
+  <div class="chart-container">
+    <canvas baseChart [data]="categoryPieData()" type="pie" [options]="chartOptions"> </canvas>
+  </div>
+
+  <div class="chart-container">
+    <canvas
+      baseChart
+      [data]="{
+        labels: ['Income', 'Expense'],
+        datasets: [
+          {
+            data: [totalIncome(), totalExpense()],
+            label: 'Overview',
+          },
+        ],
+      }"
+      chartType="bar"
+      [options]="chartOptions"
+    >
+    </canvas>
+  </div>
+
+  <div class="chart-container">
+    <canvas
+      baseChart
+      [data]="{
+    labels: budgetComparison().map(c => c.name),
+    datasets: [
+      { data: budgetComparison().map(c => c.budget), label: 'Budget' },
+      { data: budgetComparison().map(c => c.actual), label: 'Actual' }
+    ]
+  }"
+      chartType="bar"
+      [options]="chartOptions"
+    >
+    </canvas>
+  </div>
+</div>

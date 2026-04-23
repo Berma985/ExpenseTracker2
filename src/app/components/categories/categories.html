@@ -1,0 +1,40 @@
+<div class="container">
+  <button mat-raised-button color="primary" routerLink="/categoriesnew">Add Categories</button>
+  @if (loading()) {
+    <div class="center">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
+
+  @if (error) {
+    <p class="error">{{ error }}</p>
+  }
+
+  @if (!loading() && categories().length === 0) {
+    <p>No categories yet.</p>
+  }
+
+  @if (!loading() && categories().length > 0) {
+    <div class="grid">
+      @for (cat of categories(); track cat.id) {
+        <mat-card class="category-card">
+          <mat-card-header>
+            <div mat-card-avatar class="category-avatar" [style.background]="cat.color"></div>
+
+            <mat-card-title>{{ cat.name }}</mat-card-title>
+            <mat-card-subtitle> Budget: {{ cat.budget | currency }} </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <mat-icon>{{ cat.iconType }}</mat-icon>
+          </mat-card-content>
+
+          <mat-card-footer class="text-end">
+            <mat-icon (click)="deleteCategory(cat.id)">delete</mat-icon>
+            <mat-icon (click)="editCategory(cat.id)">edit</mat-icon>
+          </mat-card-footer>
+        </mat-card>
+      }
+    </div>
+  }
+</div>
