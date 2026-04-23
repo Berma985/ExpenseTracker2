@@ -84,7 +84,7 @@ export class AddCategory {
         iconType: 'category',
         budget: 0,
       });
-      this.router.navigate(['/transactions']);
+      this.router.navigate(['/categories']);
     } catch (err) {
       console.error(err);
       this.error = 'Failed to create category';
